@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 {% block content %}
 <h1>User signup</h1>
 <form method='POST'>
@@ -20,6 +22,8 @@
         <input name="email" type="text" value='{{email}}' />
     </label>
     <p class="error">{{email_error}}</p>
-    <input type="submit" value="Validate" />
+    <input type="submit" value="SUBMIT" />
 </form>
 {% endblock %}
+
+<!-- required pattern=regex title=popup -->

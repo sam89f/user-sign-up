@@ -26,14 +26,35 @@ def user_signup():
         verify = request.form['verify']
         email = request.form['email']
         
+        if len(username) < 3 or len(username) > 20 or ' ' in username:
+            username_error = 'Username must be between 3 and 20 characters and contain no spaces.'
+           
+
+        if len(password) < 3 or len(password) > 20 or ' ' in password:
+            password_error = 'Passward must be between 3 and 20 characters and contain no spaces.'
+            
+
         if verify != password:
-            verify_error = 'Verified password and password must match'
+            verify_error = 'Verified password and password must match.'
+
+        if  email and (not '@' in email and not '.' in email or ' ' in email or len(email) < 3 or len(email) > 20):
+            email_error = "Email must be between 3 and 20 characters, and must contain '@' or '.' character, and no spaces."
+             
+        if username_error:
+            username = ''
             password = ''
             verify = ''
 
-        if len(username) < 3:
-            username_error = 'Username must at least three characters'
-            username = ''
+        if password_error:
+            password = ''
+            verify = ''
+        
+        if verify_error:
+            password = ''
+            verify = ''
+
+        if email_error:
+            email = ''
             password = ''
             verify = ''
 
@@ -46,7 +67,7 @@ def user_signup():
 @app.route('/verified')
 def user_verified():
     user = request.args.get('user')
-    return render_template('verified.html', User=user)
+    return render_template('verified.html', User=user, title='User verified!')
 
 
 app.run()
